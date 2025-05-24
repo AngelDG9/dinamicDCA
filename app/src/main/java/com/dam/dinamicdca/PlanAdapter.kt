@@ -79,6 +79,10 @@ class PlanAdapter(
         if (index != -1) {
             plans[index] = updatedPlan
             notifyItemChanged(index)
+        } else {
+            // Si el plan no existe, lo añadimos
+            plans.add(updatedPlan)
+            notifyItemInserted(plans.size - 1)
         }
     }
 }

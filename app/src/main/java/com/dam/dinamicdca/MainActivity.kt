@@ -67,19 +67,24 @@ class MainActivity : AppCompatActivity() {
     private fun loadPlans() {
         lifecycleScope.launch {
             try {
+                // Primero obtenemos todos los planes
                 val plans = databaseHelper.getAllPlans()
-                // Actualizar los planes uno por uno para mantener el estado de la UI actualizado
+                
+                // Actualizamos el adaptador con la lista inicial
+                planAdapter.updatePlans(plans)
+                
+                // Luego actualizamos los datos de cada plan
                 plans.forEach { plan ->
                     try {
                         val updatedPlan = yahooAPI.updatePlanData(plan)
                         planAdapter.updatePlan(updatedPlan)
                     } catch (e: Exception) {
-                        // Si falla un plan individual, continuamos con el siguiente
                         e.printStackTrace()
                     }
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@MainActivity, "Error al cargar los planes: ${e.message}", Toast.LENGTH_LONG).show()
+                e.printStackTrace()
             }
         }
     }
@@ -95,9 +100,16 @@ class MainActivity : AppCompatActivity() {
         val sellPlanContainer = dialogView.findViewById<LinearLayout>(R.id.sellPlanContainer)
         val btnAddBuyRule = dialogView.findViewById<Button>(R.id.btnAddBuyRule)
         val btnAddSellRule = dialogView.findViewById<Button>(R.id.btnAddSellRule)
+        val btnShowCryptos = dialogView.findViewById<ImageButton>(R.id.btnShowCryptos)
 
         val buyRules = mutableListOf<String>()
         val sellRules = mutableListOf<String>()
+
+        btnShowCryptos.setOnClickListener {
+            showCryptoListDialog { crypto ->
+                etMoneda.setText(crypto.ticker)
+            }
+        }
 
         btnAddBuyRule.setOnClickListener {
             showAddBuyRuleDialog { rule -> 
@@ -661,5 +673,37 @@ class MainActivity : AppCompatActivity() {
             }
             .setNegativeButton("Cancelar", null)
             .show()
+    }
+
+    private fun showCryptoListDialog(onCryptoSelected: (CryptoCurrency) -> Unit) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_crypto_list, null)
+        val recyclerView = dialogView.findViewById<RecyclerView>(R.id.rvCryptos)
+        val searchEditText = dialogView.findViewById<EditText>(R.id.etSearch)
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle("Seleccionar Criptomoneda")
+            .setView(dialogView)
+            .setNegativeButton("Cancelar", null)
+            .create()
+
+        val adapter = CryptoAdapter(CryptoCurrency.mainCryptos) { crypto ->
+            onCryptoSelected(crypto)
+            dialog.dismiss()
+        }
+
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            this.adapter = adapter
+        }
+
+        searchEditText.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                adapter.filter.filter(s)
+            }
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        })
+
+        dialog.show()
     }
 }

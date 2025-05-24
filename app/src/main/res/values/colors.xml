@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="action_background">#E3F2FD</color>
-    <color name="buy_color">#4CAF50</color>
-    <color name="sell_color">#FF5722</color>
-    <color name="neutral_color">#757575</color>
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    <color name="accent">#FF4081</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="white">#FFFFFF</color>
+    <color name="background">#F5F5F5</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="positive_green">#4CAF50</color>
+    <color name="negative_red">#F44336</color>
+    <color name="warning_yellow">#FFC107</color>
 </resources>

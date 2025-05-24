@@ -23,19 +23,35 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginBottom="8dp">
 
-            <EditText
-                android:id="@+id/etMoneda"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Par de trading exacto (ej: BTC-USD)"
-                android:inputType="text" />
+                android:layout_weight="1">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/etMoneda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Par de trading (ej: BTC-USD)" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/btnShowCryptos"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:src="@android:drawable/ic_menu_search"
+                android:contentDescription="Buscar criptomonedas" />
+
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -46,13 +62,13 @@
                 android:id="@+id/etAthv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="ATHV (All Time High Value)"
+                android:hint="ATHV"
                 android:inputType="numberDecimal" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fecha ATHV:"
             android:layout_marginBottom="4dp"/>
@@ -66,32 +82,30 @@
             android:layout_marginBottom="8dp"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Plan de Compra"
-            android:textStyle="bold"
+            android:text="Plan de Compra:"
             android:layout_marginBottom="4dp"/>
 
         <LinearLayout
             android:id="@+id/buyPlanContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp">
 
             <Button
                 android:id="@+id/btnAddBuyRule"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="+ Añadir regla de compra"/>
+                android:text="Añadir Regla de Compra"/>
 
         </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Plan de Venta"
-            android:textStyle="bold"
-            android:layout_marginTop="8dp"
+            android:text="Plan de Venta:"
             android:layout_marginBottom="4dp"/>
 
         <LinearLayout
@@ -102,9 +116,9 @@
 
             <Button
                 android:id="@+id/btnAddSellRule"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="+ Añadir regla de venta"/>
+                android:text="Añadir Regla de Venta"/>
 
         </LinearLayout>
 
