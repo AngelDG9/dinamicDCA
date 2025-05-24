@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="action_background">#E3F2FD</color>
+    <color name="buy_color">#4CAF50</color>
+    <color name="sell_color">#FF5722</color>
+    <color name="neutral_color">#757575</color>
+</resources>
